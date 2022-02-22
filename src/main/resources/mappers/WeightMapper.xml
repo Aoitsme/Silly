@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ao.crs.dao.WeightMapper" >
+  <resultMap id="BaseResultMap" type="com.ao.crs.pojo.Weight" >
+    <id column="weight_id" property="weightId" jdbcType="INTEGER" />
+    <result column="jobObject_id" property="jobobjectId" jdbcType="INTEGER" />
+    <result column="job_id" property="jobId" jdbcType="INTEGER" />
+    <result column="job_name" property="jobName" jdbcType="VARCHAR" />
+    <result column="per_num" property="perNum" jdbcType="INTEGER" />
+    <result column="gender_needs" property="genderNeeds" jdbcType="VARCHAR" />
+    <result column="age_needs" property="ageNeeds" jdbcType="VARCHAR" />
+    <result column="marriage_needs" property="marriageNeeds" jdbcType="VARCHAR" />
+    <result column="status_needs" property="statusNeeds" jdbcType="VARCHAR" />
+    <result column="edu_needs" property="eduNeeds" jdbcType="VARCHAR" />
+    <result column="eduDeg_weight" property="edudegWeight" jdbcType="DOUBLE" />
+    <result column="workYear_weight" property="workyearWeight" jdbcType="DOUBLE" />
+    <result column="expSalary_weight" property="expsalaryWeight" jdbcType="DOUBLE" />
+    <result column="workPlace_weight" property="workplaceWeight" jdbcType="DOUBLE" />
+    <result column="major_weight" property="majorWeight" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    weight_id, jobObject_id, job_id, job_name, per_num, gender_needs, age_needs, marriage_needs, 
+    status_needs, edu_needs, eduDeg_weight, workYear_weight, expSalary_weight, workPlace_weight, 
+    major_weight
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from weight
+    where weight_id = #{weightId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from weight
+    where weight_id = #{weightId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ao.crs.pojo.Weight" >
+    insert into weight (weight_id, jobObject_id, job_id, 
+      job_name, per_num, gender_needs, 
+      age_needs, marriage_needs, status_needs, 
+      edu_needs, eduDeg_weight, workYear_weight, 
+      expSalary_weight, workPlace_weight, major_weight
+      )
+    values (#{weightId,jdbcType=INTEGER}, #{jobobjectId,jdbcType=INTEGER}, #{jobId,jdbcType=INTEGER}, 
+      #{jobName,jdbcType=VARCHAR}, #{perNum,jdbcType=INTEGER}, #{genderNeeds,jdbcType=VARCHAR},
+      #{ageNeeds,jdbcType=VARCHAR}, #{marriageNeeds,jdbcType=VARCHAR}, #{statusNeeds,jdbcType=VARCHAR}, 
+      #{eduNeeds,jdbcType=VARCHAR}, #{edudegWeight,jdbcType=DOUBLE}, #{workyearWeight,jdbcType=DOUBLE}, 
+      #{expsalaryWeight,jdbcType=DOUBLE}, #{workplaceWeight,jdbcType=DOUBLE}, #{majorWeight,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ao.crs.pojo.Weight" >
+    insert into weight
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="weightId != null" >
+        weight_id,
+      </if>
+      <if test="jobobjectId != null" >
+        jobObject_id,
+      </if>
+      <if test="jobId != null" >
+        job_id,
+      </if>
+      <if test="jobName != null" >
+        job_name,
+      </if>
+      <if test="perNum != null" >
+        per_num,
+      </if>
+      <if test="genderNeeds != null" >
+        gender_needs,
+      </if>
+      <if test="ageNeeds != null" >
+        age_needs,
+      </if>
+      <if test="marriageNeeds != null" >
+        marriage_needs,
+      </if>
+      <if test="statusNeeds != null" >
+        status_needs,
+      </if>
+      <if test="eduNeeds != null" >
+        edu_needs,
+      </if>
+      <if test="edudegWeight != null" >
+        eduDeg_weight,
+      </if>
+      <if test="workyearWeight != null" >
+        workYear_weight,
+      </if>
+      <if test="expsalaryWeight != null" >
+        expSalary_weight,
+      </if>
+      <if test="workplaceWeight != null" >
+        workPlace_weight,
+      </if>
+      <if test="majorWeight != null" >
+        major_weight,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="weightId != null" >
+        #{weightId,jdbcType=INTEGER},
+      </if>
+      <if test="jobobjectId != null" >
+        #{jobobjectId,jdbcType=INTEGER},
+      </if>
+      <if test="jobId != null" >
+        #{jobId,jdbcType=INTEGER},
+      </if>
+      <if test="jobName != null" >
+        #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="perNum != null" >
+        #{perNum,jdbcType=INTEGER},
+      </if>
+      <if test="genderNeeds != null" >
+        #{genderNeeds,jdbcType=VARCHAR},
+      </if>
+      <if test="ageNeeds != null" >
+        #{ageNeeds,jdbcType=VARCHAR},
+      </if>
+      <if test="marriageNeeds != null" >
+        #{marriageNeeds,jdbcType=VARCHAR},
+      </if>
+      <if test="statusNeeds != null" >
+        #{statusNeeds,jdbcType=VARCHAR},
+      </if>
+      <if test="eduNeeds != null" >
+        #{eduNeeds,jdbcType=VARCHAR},
+      </if>
+      <if test="edudegWeight != null" >
+        #{edudegWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="workyearWeight != null" >
+        #{workyearWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="expsalaryWeight != null" >
+        #{expsalaryWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="workplaceWeight != null" >
+        #{workplaceWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="majorWeight != null" >
+        #{majorWeight,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ao.crs.pojo.Weight" >
+    update weight
+    <set >
+      <if test="jobobjectId != null" >
+        jobObject_id = #{jobobjectId,jdbcType=INTEGER},
+      </if>
+      <if test="jobId != null" >
+        job_id = #{jobId,jdbcType=INTEGER},
+      </if>
+      <if test="jobName != null" >
+        job_name = #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="perNum != null" >
+        per_num = #{perNum,jdbcType=INTEGER},
+      </if>
+      <if test="genderNeeds != null" >
+        gender_needs = #{genderNeeds,jdbcType=VARCHAR},
+      </if>
+      <if test="ageNeeds != null" >
+        age_needs = #{ageNeeds,jdbcType=VARCHAR},
+      </if>
+      <if test="marriageNeeds != null" >
+        marriage_needs = #{marriageNeeds,jdbcType=VARCHAR},
+      </if>
+      <if test="statusNeeds != null" >
+        status_needs = #{statusNeeds,jdbcType=VARCHAR},
+      </if>
+      <if test="eduNeeds != null" >
+        edu_needs = #{eduNeeds,jdbcType=VARCHAR},
+      </if>
+      <if test="edudegWeight != null" >
+        eduDeg_weight = #{edudegWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="workyearWeight != null" >
+        workYear_weight = #{workyearWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="expsalaryWeight != null" >
+        expSalary_weight = #{expsalaryWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="workplaceWeight != null" >
+        workPlace_weight = #{workplaceWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="majorWeight != null" >
+        major_weight = #{majorWeight,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where weight_id = #{weightId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ao.crs.pojo.Weight" >
+    update weight
+    set jobObject_id = #{jobobjectId,jdbcType=INTEGER},
+      job_id = #{jobId,jdbcType=INTEGER},
+      job_name = #{jobName,jdbcType=VARCHAR},
+      per_num = #{perNum,jdbcType=INTEGER},
+      gender_needs = #{genderNeeds,jdbcType=VARCHAR},
+      age_needs = #{ageNeeds,jdbcType=VARCHAR},
+      marriage_needs = #{marriageNeeds,jdbcType=VARCHAR},
+      status_needs = #{statusNeeds,jdbcType=VARCHAR},
+      edu_needs = #{eduNeeds,jdbcType=VARCHAR},
+      eduDeg_weight = #{edudegWeight,jdbcType=DOUBLE},
+      workYear_weight = #{workyearWeight,jdbcType=DOUBLE},
+      expSalary_weight = #{expsalaryWeight,jdbcType=DOUBLE},
+      workPlace_weight = #{workplaceWeight,jdbcType=DOUBLE},
+      major_weight = #{majorWeight,jdbcType=DOUBLE}
+    where weight_id = #{weightId,jdbcType=INTEGER}
+  </update>
+  <select id="findWeightByJobId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from Weight
+    where  job_id = #{jobId,jdbcType=INTEGER}
+  </select>
+  <insert id="addWeightByJobId"  parameterType="java.lang.String" >
+    ALTER TABLE weight ADD (
+	`#{1}` varchar (20) UNSIGNED DEFAULT '0' ,
+	`#{2}` varchar (20) UNSIGNED DEFAULT '0' )
+  </insert>
+</mapper>

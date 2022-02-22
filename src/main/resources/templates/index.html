@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>校园招聘系统登录页</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
+    <script src="layuimini/lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
+    <script src="layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="layuimini/lib/jq-module/jquery.particleground.min.js" charset="utf-8"></script>
+
+
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body:after {
+            content: '';
+            background-repeat: no-repeat;
+            background-size: cover;
+            -webkit-filter: blur(3px);
+            -moz-filter: blur(3px);
+            -o-filter: blur(3px);
+            -ms-filter: blur(3px);
+            filter: blur(3px);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+
+        .layui-container {
+            width: 100%;
+            height: 100%;
+            overflow: hidden
+        }
+
+        .leftbackground {
+            width: 140px;
+            height: 300px;
+            position: absolute;
+            left: 0%;
+            top: 10%;
+        }
+
+        .rightbackground {
+            width: 390px;
+            height: 300px;
+            position: absolute;
+            right: 0%;
+            top: 10%;
+        }
+
+        .midbackground {
+            width: 500px;
+            height: 300px;
+            position: absolute;
+            left: 25%;
+            top: 10%;
+        }
+    </style>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+
+</head>
+<body>
+<ul class="layui-nav">
+    <li class="layui-nav-item "><a href="/">CRS校园招聘</a></li>
+    <li class="layui-nav-item  layui-col-md-offset9 "><a href="/login">登录</a></li>
+    <li class="layui-nav-item layui-inline"><a href="/register">注册</a></li>
+</ul>
+
+<div class="layui-container">
+
+    <div class="layui-row ">
+        <div class=" leftbackground">
+            <table class="" id="userrank"></table>
+        </div>
+        <div class=" rightbackground">
+            <table class="" id="companyrank"></table>
+        </div>
+    </div>
+
+
+</div>
+<script>
+    layui.use(['table'], function () {
+        var table = layui.table;
+
+
+        table.render({
+            elem: '#userrank'
+            , url: '/selectUserWithValue'
+            , cols: [
+                [
+                    {field: 'username', width: 140, title: '用户名'},
+                ]
+            ]
+        });
+
+        table.render({
+            elem: '#companyrank'
+            , url: '/selectCompanyWithValue'
+            , cols: [
+                [
+                    {field: 'companyName', width: 130, title: '企业名'},
+                    {field: 'jobName', width: 130, title: '岗位名'},
+                    {field: 'value', width: 130, title: '价值'}
+                ]
+            ]
+        });
+
+        // 粒子线条背景
+        $(document).ready(function () {
+            $('.layui-container').particleground({
+                dotColor: '#7ec7fd',
+                lineColor: '#7ec7fd'
+            });
+        });
+
+    });
+
+</script>
+</body>
+</html>

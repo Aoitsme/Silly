@@ -1,0 +1,131 @@
+<div class="layuimini-container layuimini-page-anim">
+    <div class="layuimini-main">
+
+        <form class="layui-form" action="" lay-filter="companymsg">
+            <p class="layui-hide" sec:authentication="name" id="username">
+            <div class="layui-form-item">
+                <label class="layui-form-label" >企业名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="companyname" lay-verify="title"  autocomplete="off"  class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">企业地址</label>
+                <div class="layui-input-block">
+                    <input type="text" name="address" lay-verify="title" autocomplete="off"  class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">邮箱</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">企业负责人</label>
+                <div class="layui-input-block">
+                    <input type="text" name="leader" lay-verify="title" autocomplete="off"  class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">创建时间</label>
+                <div class="layui-input-block">
+                    <input type="text" name="createtime" lay-verify="title" autocomplete="off"  class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit="" lay-filter="insertBtn">添加信息</button>
+                    <button class="layui-btn" lay-submit="" lay-filter="saveBtn">保存信息</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+
+
+
+    layui.use(['form', 'table'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            table = layui.table,
+            $ = layui.$,
+            data= data;
+
+        /**
+         * 初始化表单，要加上，不然刷新部分组件可能会不加载
+         */
+        form.render();
+
+        // 当前弹出层，防止ID被覆盖
+        var parentIndex = layer.index;
+
+        //监听保存按钮
+        form.on('submit(saveBtn)', function (data) {
+            data.field.username=document.getElementById("username").innerText;
+                $.ajax({
+                    type:"POST",
+                    url:"/updatecompany",
+                    contentType: "application/json", //必须这样写
+                    dataType:"json",
+                    data:JSON.stringify(data.field),
+                    success:function (data) {
+                        if (data=="1"){
+                            alert("企业信息更新成功");
+                        }else{
+                            alert("企业信息更新失败");
+                        }
+                    }
+                })
+            });
+
+        //添加企业信息
+        form.on('submit(insertBtn)', function (data) {
+            data.field.username=document.getElementById("username").innerText;
+            $.ajax({
+                type:"POST",
+                url:"/insertcompany",
+                contentType: "application/json", //必须这样写
+                dataType:"json",
+                data:JSON.stringify(data.field),
+                success:function (data) {
+                        alert("企业信息添加成功");
+                }
+            })
+        });
+        //页面加载时执行
+        $(function() {
+            $.ajax({
+                type: "GET",
+                url: "/selectCompanyByUserName",
+                contentType: "application/json", //必须这样写
+                dataType: "json",
+                data:{ username: document.getElementById("username").innerText} ,
+                success: function (data) {
+                    var data = data;
+                        $.each(data.data, function(i, item) {
+                            form.val('companymsg',
+                                {
+                                    "companyname": item.companyname
+                                    , "address": item.address
+                                    , "email": item.email
+                                    , "leader": item.leader
+                                    , "createtime": item.createtime
+                                }
+                            );
+                        });
+
+
+                }
+            })
+        });
+
+
+    });
+</script>

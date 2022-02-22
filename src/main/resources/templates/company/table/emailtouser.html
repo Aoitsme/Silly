@@ -1,0 +1,114 @@
+<div class="layuimini-main">
+    <p class="layui-hide" sec:authentication="name" id="username">
+    <div class="layui-form ">
+            <div class="layui-form-item">
+                <label class="layui-form-label required">收件人邮箱</label>
+                <div class="layui-input-block">
+                    <input type="text" name="to" id="to" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label required">邮件标题</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" id="title" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label required">邮件内容</label>
+                <div class="layui-input-block">
+                    <input type="text" name="content" id="content" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">指定邮件的传输协议</label>
+                <div class="layui-input-block">
+                    <input type="text" name="smtp" id="smtp" value="smtp" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">指定邮件发送服务器服务器</label>
+                <div class="layui-input-block">
+                    <input type="text" name="host" id="host" value="smtp.qq.com" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">指定邮件的发送人</label>
+                <div class="layui-input-block">
+                    <input type="text" name="sendName" id="sendName" value="1142044719@qq.com"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">指定端口</label>
+                <div class="layui-input-block">
+                    <input type="text" name="sendPort" id="sendPort" value="465" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">登录邮箱用户名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="accoutname" id="accoutname" value="1142044719" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">登录邮箱的密码</label>
+                <div class="layui-input-block">
+                    <input type="text" name="userPwd" id="userPwd" value="rhjtbfsdgwhzhhic"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="sendmail">发送邮件</button>
+                </div>
+            </div>
+
+    </div>
+</div>
+<script>
+    layui.use(['form', 'table'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            table = layui.table,
+            $ = layui.$;
+
+        /**
+         * 初始化表单，要加上，不然刷新部分组件可能会不加载
+         */
+        form.render();
+
+        // 当前弹出层，防止ID被覆盖
+        var parentIndex = layer.index;
+
+
+        //监听提交
+        form.on('submit(sendmail)', function (data) {
+
+            $.ajax({
+                type: "Get",
+                url:"/sendmail?to="+document.getElementById("to").value+
+                    "&title="+document.getElementById("title").value+
+                    "&content="+document.getElementById("content").value+
+                    "&smtp="+document.getElementById("smtp").value+
+                    "&host="+document.getElementById("host").value+
+                    "&sendName="+document.getElementById("sendName").value+
+                    "&sendPort="+document.getElementById("sendPort").value+
+                    "&accoutname="+document.getElementById("accoutname").value+
+                    "&userPwd="+document.getElementById("userPwd").value,
+                contentType: "application/json", //必须这样写
+                dataType: "json",
+                data:{},
+                success: function (data) {
+                }
+            });
+            // 关闭弹出层
+            layer.close(index);
+            layer.close(parentIndex);
+            return false;
+        });
+
+    });
+</script>
+

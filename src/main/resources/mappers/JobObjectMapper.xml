@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ao.crs.dao.JobObjectMapper" >
+  <resultMap id="BaseResultMap" type="com.ao.crs.pojo.JobObject" >
+    <id column="jobObject_id" property="jobobjectId" jdbcType="INTEGER" />
+    <result column="resume_id" property="resumeId" jdbcType="INTEGER" />
+    <result column="expected_job" property="expectedJob" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="value" property="value" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    jobObject_id, resume_id, expected_job, status, value
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jobobject
+    where jobObject_id = #{jobobjectId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jobobject
+    where jobObject_id = #{jobobjectId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ao.crs.pojo.JobObject" >
+    insert into jobobject (jobObject_id, resume_id, expected_job, 
+      status, value)
+    values (#{jobobjectId,jdbcType=INTEGER}, #{resumeId,jdbcType=INTEGER}, #{expectedJob,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{value,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ao.crs.pojo.JobObject" >
+    insert into jobobject
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jobobjectId != null" >
+        jobObject_id,
+      </if>
+      <if test="resumeId != null" >
+        resume_id,
+      </if>
+      <if test="expectedJob != null" >
+        expected_job,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="value != null" >
+        value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jobobjectId != null" >
+        #{jobobjectId,jdbcType=INTEGER},
+      </if>
+      <if test="resumeId != null" >
+        #{resumeId,jdbcType=INTEGER},
+      </if>
+      <if test="expectedJob != null" >
+        #{expectedJob,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ao.crs.pojo.JobObject" >
+    update jobobject
+    <set >
+      <if test="resumeId != null" >
+        resume_id = #{resumeId,jdbcType=INTEGER},
+      </if>
+      <if test="expectedJob != null" >
+        expected_job = #{expectedJob,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="value != null" >
+        value = #{value,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where jobObject_id = #{jobobjectId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ao.crs.pojo.JobObject" >
+    update jobobject
+    set resume_id = #{resumeId,jdbcType=INTEGER},
+      expected_job = #{expectedJob,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      value = #{value,jdbcType=DOUBLE}
+    where jobObject_id = #{jobobjectId,jdbcType=INTEGER}
+  </update>
+</mapper>

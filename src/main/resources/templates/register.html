@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>校园招聘系统登录页</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
+    <script src="layuimini/lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="layuimini/lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
+    <script src="layuimini/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="layuimini/lib/jq-module/jquery.particleground.min.js" charset="utf-8"></script>
+    <style>
+        html, body {width: 100%;height: 100%;overflow: hidden}
+        body {background: #1E9FFF;}
+        body:after {content:'';background-repeat:no-repeat;background-size:cover;-webkit-filter:blur(3px);-moz-filter:blur(3px);-o-filter:blur(3px);-ms-filter:blur(3px);filter:blur(3px);position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;}
+        .layui-container {width: 100%;height: 100%;overflow: hidden}
+        .register-background{width:360px;height:300px;position:absolute;left:50%;top:40%;margin-left:-180px;margin-top:-100px;}
+        .logo-title {text-align:center;letter-spacing:2px;padding:14px 0;}
+        .logo-title h1 {color:#1E9FFF;font-size:25px;font-weight:bold;}
+        .layui-form {background-color:#fff;border:1px solid #fff;border-radius:3px;box-shadow:0 0 8px #eeeeee;}
+        .captcha-img img {height:34px;border:1px solid #e6e6e6;height:36px;width:100%;}
+    </style>
+</head>
+<body>
+
+<div class="layui-container">
+    <div class="register-background">
+        <div class="layui-form layuimini-form ">
+            <div class="layui-inline">
+                <div class="layui-form-item logo-title layui-col-md-offset2"  style="text-align: center">
+                    <h1>注册</h1>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="username" lay-verify="required username" lay-reqtext="用户名是必填项，岂能为空？" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-inline">
+                        <input type="password" lay-verify="pass" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">手机</label>
+                    <div class="layui-input-inline">
+                        <input type="tel" name="phonenumber" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">邮箱</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item" >
+                    <label class="layui-form-label">账号类型</label>
+                    <div class="layui-input-inline" >
+                        <!--            onclick="getRadioValue(document.registerform.role)"-->
+                        <input type="radio" name="authorityId" id="userrole" value="1" title="求职者" >
+                        <input type="radio" name="authorityId" id="companyrole" value="2" title="企业">
+                    </div>
+                </div>
+                <div class="layui-form-item ">
+                    <div class="layui-input-inline layui-col-md-offset3" style="text-align: center">
+                        <button type="submit" class="layui-btn layui-btn-normal " lay-submit="" lay-filter="register">提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary ">重置</button>
+                        <a href="/" class="layui-btn  layui-btn-normal layui-btn-fluid" target="_blank" style="margin-top: 20px;">返回首页</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+    layui.use(['form', 'layedit', 'laydate'], function(){
+        var form = layui.form
+            ,layer = layui.layer;
+
+        function jumptoindex(){
+            window.location="/";
+        }
+        //自定义验证规则
+        form.verify({
+            pass: [
+                /^[\S]{8,12}$/
+                ,'密码必须8到12位，且不能出现空格'
+            ]
+            ,content: function(value){
+                layedit.sync(editIndex);
+            }
+        });
+        //监听指定开关
+        form.on('switch(switchTest)', function(data){
+            layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
+                offset: '6px'
+            });
+            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+        });
+        //监听提交
+        form.on('submit(register)', function (data) {
+                $.ajax({
+                        type: "POST",
+                        url: "/userregister",
+                        contentType: "application/json", //必须这样写
+                        dataType: "json",
+                        data: JSON.stringify(data.field),
+                        success: function (data) {
+                            if (data == "1") {
+                                alert("用户名已存在");
+                            } else {
+                                alert("注册成功");
+                                window.location = "/login";
+                            }
+                        }
+                    }
+                );
+            }
+        );
+        // 登录过期的时候，跳出ifram框架
+        if (top.location != self.location) top.location = self.location;
+
+        // 粒子线条背景
+        $(document).ready(function(){
+            $('.layui-container').particleground({
+                dotColor:'#7ec7fd',
+                lineColor:'#7ec7fd'
+            });
+        });
+
+
+    });
+
+
+</script>
+</body>
+</html>

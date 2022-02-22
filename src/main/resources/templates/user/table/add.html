@@ -1,0 +1,120 @@
+<div class="layuimini-main">
+
+    <div class="layui-form layuimini-form">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">工作名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="jobName" lay-verify="required" lay-reqtext="工作名称不能为空" placeholder="请输入工作名称" value="" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">招聘时间</label>
+            <div class="layui-input-block">
+                <input type="text" name="jobTime"  placeholder="请输入招聘时间" value="" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">招聘人数</label>
+            <div class="layui-input-block">
+                <input type="text" name="perNum"  placeholder="请输入招聘人数" value="" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">招聘地点</label>
+            <div class="layui-input-block">
+                <input type="text" name="jobAdd"  placeholder="请输入招聘地点" value="" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">招聘要求</label>
+            <div class="layui-input-block">
+                <input type="text" name="jobRequire"  placeholder="请输入招聘要求" value="" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">要求学历程度</label>
+            <div class="layui-input-block">
+                <input type="text" name="reqeduType"  placeholder="请输入要求学历程度" value="" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">要求工作年限</label>
+            <div class="layui-input-block">
+                <input type="text" name="reqworkLife"  placeholder="请输入要求工作年限" value="" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">要求薪资待遇</label>
+            <div class="layui-input-block">
+                <input type="text" name="reqexpSalary"  placeholder="请输入要求薪资待遇" value="" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">要去工作省份</label>
+            <div class="layui-input-block">
+                <input type="text" name="reqworkProvince"  placeholder="请输入要去工作省份" value="" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">要求工作城市</label>
+            <div class="layui-input-block">
+                <input type="text" name="reqworkCity"  placeholder="请输入要求工作城市" value="" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">要求专业</label>
+            <div class="layui-input-block">
+                <input type="text" name="reqproType"  placeholder="请输入要求专业" value="" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'table'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            table = layui.table,
+            $ = layui.$;
+
+        /**
+         * 初始化表单，要加上，不然刷新部分组件可能会不加载
+         */
+        form.render();
+
+        // 当前弹出层，防止ID被覆盖
+        var parentIndex = layer.index;
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            var index = layer.alert(JSON.stringify(data.field), {
+                title: '最终的提交信息'
+            }, function () {
+                $.ajax({
+                    type:"POST",
+                    url:"/addJob",
+                    contentType: "application/json", //必须这样写
+                    dataType:"text",
+                    data:JSON.stringify(data.field),
+                    success:function (data) {
+                    }
+
+                })
+                // 关闭弹出层
+                layer.close(index);
+                layer.close(parentIndex);
+
+            });
+
+
+            return false;
+        });
+
+    });
+</script>

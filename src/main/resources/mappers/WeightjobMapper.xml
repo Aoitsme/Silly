@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ao.crs.dao.WeightjobMapper" >
+  <resultMap id="BaseResultMap" type="com.ao.crs.pojo.Weightjob" >
+    <id column="weightjob_id" property="weightjobId" jdbcType="INTEGER" />
+    <result column="job_id" property="jobId" jdbcType="INTEGER" />
+    <result column="job_name" property="jobName" jdbcType="VARCHAR" />
+    <result column="weightitem" property="weightitem" jdbcType="VARCHAR" />
+    <result column="weightvalue" property="weightvalue" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    weightjob_id, job_id, job_name, weightitem, weightvalue
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from weightjob
+    where weightjob_id = #{weightjobId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from weightjob
+    where weightjob_id = #{weightjobId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ao.crs.pojo.Weightjob" >
+    insert into weightjob (weightjob_id, job_id, job_name, 
+      weightitem, weightvalue)
+    values (#{weightjobId,jdbcType=INTEGER}, #{jobId,jdbcType=INTEGER}, #{jobName,jdbcType=VARCHAR}, 
+      #{weightitem,jdbcType=VARCHAR}, #{weightvalue,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ao.crs.pojo.Weightjob" >
+    insert into weightjob
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="weightjobId != null" >
+        weightjob_id,
+      </if>
+      <if test="jobId != null" >
+        job_id,
+      </if>
+      <if test="jobName != null" >
+        job_name,
+      </if>
+      <if test="weightitem != null" >
+        weightitem,
+      </if>
+      <if test="weightvalue != null" >
+        weightvalue,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="weightjobId != null" >
+        #{weightjobId,jdbcType=INTEGER},
+      </if>
+      <if test="jobId != null" >
+        #{jobId,jdbcType=INTEGER},
+      </if>
+      <if test="jobName != null" >
+        #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="weightitem != null" >
+        #{weightitem,jdbcType=VARCHAR},
+      </if>
+      <if test="weightvalue != null" >
+        #{weightvalue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ao.crs.pojo.Weightjob" >
+    update weightjob
+    <set >
+      <if test="jobId != null" >
+        job_id = #{jobId,jdbcType=INTEGER},
+      </if>
+      <if test="jobName != null" >
+        job_name = #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="weightitem != null" >
+        weightitem = #{weightitem,jdbcType=VARCHAR},
+      </if>
+      <if test="weightvalue != null" >
+        weightvalue = #{weightvalue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where weightjob_id = #{weightjobId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ao.crs.pojo.Weightjob" >
+    update weightjob
+    set job_id = #{jobId,jdbcType=INTEGER},
+      job_name = #{jobName,jdbcType=VARCHAR},
+      weightitem = #{weightitem,jdbcType=VARCHAR},
+      weightvalue = #{weightvalue,jdbcType=VARCHAR}
+    where weightjob_id = #{weightjobId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByJobId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from weightjob
+    where job_id = #{jobId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByweightjobId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from weightjob
+    where weightjob_id = #{weightjobId,jdbcType=INTEGER}
+  </select>
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ao.crs.dao.CompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.ao.crs.pojo.Company" >
+    <id column="company_id" property="companyId" jdbcType="INTEGER" />
+    <result column="companyname" property="companyname" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="leader" property="leader" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    company_id, companyname, address, email, leader, createTime, username
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from company
+    where company_id = #{companyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from company
+    where company_id = #{companyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ao.crs.pojo.Company" >
+    insert into company (company_id, companyname, address, 
+      email, leader, createTime, 
+      username)
+    values (#{companyId,jdbcType=INTEGER}, #{companyname,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{leader,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ao.crs.pojo.Company" >
+    insert into company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="companyname != null" >
+        companyname,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="leader != null" >
+        leader,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="companyId != null" >
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="companyname != null" >
+        #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="leader != null" >
+        #{leader,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ao.crs.pojo.Company" >
+    update company
+    <set >
+      <if test="companyname != null" >
+        companyname = #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="leader != null" >
+        leader = #{leader,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where company_id = #{companyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ao.crs.pojo.Company" >
+    update company
+    set companyname = #{companyname,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      leader = #{leader,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR}
+    where company_id = #{companyId,jdbcType=INTEGER}
+  </update>
+  <select id="findAll" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from company
+  </select>
+  <select id="selectByUserName" resultMap="BaseResultMap" parameterType="com.ao.crs.pojo.Company" >
+    select
+    <include refid="Base_Column_List" />
+    from company
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+</mapper>

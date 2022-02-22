@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ao.crs.dao.JobMapper" >
+  <resultMap id="BaseResultMap" type="com.ao.crs.pojo.Job" >
+    <id column="job_id" property="jobId" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="INTEGER" />
+    <result column="job_name" property="jobName" jdbcType="VARCHAR" />
+    <result column="job_time" property="jobTime" jdbcType="VARCHAR" />
+    <result column="per_num" property="perNum" jdbcType="INTEGER" />
+    <result column="job_place" property="jobPlace" jdbcType="VARCHAR" />
+    <result column="job_require" property="jobRequire" jdbcType="VARCHAR" />
+    <result column="reqEdu_type" property="reqeduType" jdbcType="VARCHAR" />
+    <result column="reqWork_life" property="reqworkLife" jdbcType="VARCHAR" />
+    <result column="reqExp_salary" property="reqexpSalary" jdbcType="VARCHAR" />
+    <result column="reqWork_province" property="reqworkProvince" jdbcType="VARCHAR" />
+    <result column="reqWork_city" property="reqworkCity" jdbcType="VARCHAR" />
+    <result column="reqPro_type" property="reqproType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    job_id, company_id, job_name, job_time, per_num, job_place, job_require, reqEdu_type, 
+    reqWork_life, reqExp_salary, reqWork_province, reqWork_city, reqPro_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from job
+    where job_id = #{jobId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from job
+    where job_id = #{jobId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ao.crs.pojo.Job" >
+    insert into job (job_id, company_id, job_name, 
+      job_time, per_num, job_place, 
+      job_require, reqEdu_type, reqWork_life, 
+      reqExp_salary, reqWork_province, reqWork_city, 
+      reqPro_type)
+    values (#{jobId,jdbcType=INTEGER}, #{companyId,jdbcType=INTEGER}, #{jobName,jdbcType=VARCHAR}, 
+      #{jobTime,jdbcType=VARCHAR}, #{perNum,jdbcType=INTEGER}, #{jobPlace,jdbcType=VARCHAR}, 
+      #{jobRequire,jdbcType=VARCHAR}, #{reqeduType,jdbcType=VARCHAR}, #{reqworkLife,jdbcType=VARCHAR}, 
+      #{reqexpSalary,jdbcType=VARCHAR}, #{reqworkProvince,jdbcType=VARCHAR}, #{reqworkCity,jdbcType=VARCHAR}, 
+      #{reqproType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ao.crs.pojo.Job" >
+    insert into job
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jobId != null" >
+        job_id,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="jobName != null" >
+        job_name,
+      </if>
+      <if test="jobTime != null" >
+        job_time,
+      </if>
+      <if test="perNum != null" >
+        per_num,
+      </if>
+      <if test="jobPlace != null" >
+        job_place,
+      </if>
+      <if test="jobRequire != null" >
+        job_require,
+      </if>
+      <if test="reqeduType != null" >
+        reqEdu_type,
+      </if>
+      <if test="reqworkLife != null" >
+        reqWork_life,
+      </if>
+      <if test="reqexpSalary != null" >
+        reqExp_salary,
+      </if>
+      <if test="reqworkProvince != null" >
+        reqWork_province,
+      </if>
+      <if test="reqworkCity != null" >
+        reqWork_city,
+      </if>
+      <if test="reqproType != null" >
+        reqPro_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jobId != null" >
+        #{jobId,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="jobName != null" >
+        #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="jobTime != null" >
+        #{jobTime,jdbcType=VARCHAR},
+      </if>
+      <if test="perNum != null" >
+        #{perNum,jdbcType=INTEGER},
+      </if>
+      <if test="jobPlace != null" >
+        #{jobPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="jobRequire != null" >
+        #{jobRequire,jdbcType=VARCHAR},
+      </if>
+      <if test="reqeduType != null" >
+        #{reqeduType,jdbcType=VARCHAR},
+      </if>
+      <if test="reqworkLife != null" >
+        #{reqworkLife,jdbcType=VARCHAR},
+      </if>
+      <if test="reqexpSalary != null" >
+        #{reqexpSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="reqworkProvince != null" >
+        #{reqworkProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="reqworkCity != null" >
+        #{reqworkCity,jdbcType=VARCHAR},
+      </if>
+      <if test="reqproType != null" >
+        #{reqproType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ao.crs.pojo.Job" >
+    update job
+    <set >
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="jobName != null" >
+        job_name = #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="jobTime != null" >
+        job_time = #{jobTime,jdbcType=VARCHAR},
+      </if>
+      <if test="perNum != null" >
+        per_num = #{perNum,jdbcType=INTEGER},
+      </if>
+      <if test="jobPlace != null" >
+        job_place = #{jobPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="jobRequire != null" >
+        job_require = #{jobRequire,jdbcType=VARCHAR},
+      </if>
+      <if test="reqeduType != null" >
+        reqEdu_type = #{reqeduType,jdbcType=VARCHAR},
+      </if>
+      <if test="reqworkLife != null" >
+        reqWork_life = #{reqworkLife,jdbcType=VARCHAR},
+      </if>
+      <if test="reqexpSalary != null" >
+        reqExp_salary = #{reqexpSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="reqworkProvince != null" >
+        reqWork_province = #{reqworkProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="reqworkCity != null" >
+        reqWork_city = #{reqworkCity,jdbcType=VARCHAR},
+      </if>
+      <if test="reqproType != null" >
+        reqPro_type = #{reqproType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where job_id = #{jobId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ao.crs.pojo.Job" >
+    update job
+    set company_id = #{companyId,jdbcType=INTEGER},
+      job_name = #{jobName,jdbcType=VARCHAR},
+      job_time = #{jobTime,jdbcType=VARCHAR},
+      per_num = #{perNum,jdbcType=INTEGER},
+      job_place = #{jobPlace,jdbcType=VARCHAR},
+      job_require = #{jobRequire,jdbcType=VARCHAR},
+      reqEdu_type = #{reqeduType,jdbcType=VARCHAR},
+      reqWork_life = #{reqworkLife,jdbcType=VARCHAR},
+      reqExp_salary = #{reqexpSalary,jdbcType=VARCHAR},
+      reqWork_province = #{reqworkProvince,jdbcType=VARCHAR},
+      reqWork_city = #{reqworkCity,jdbcType=VARCHAR},
+      reqPro_type = #{reqproType,jdbcType=VARCHAR}
+    where job_id = #{jobId,jdbcType=INTEGER}
+  </update>
+  <select id="findAll" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from job
+  </select>
+
+  <select id="selectJobByCompanyId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List" />
+    from job
+    where company_id = #{companyId,jdbcType=INTEGER}
+  </select>
+</mapper>

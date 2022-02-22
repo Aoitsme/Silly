@@ -1,0 +1,183 @@
+<div class="layuimini-container layuimini-page-anim">
+    <div class="layuimini-main">
+        <fieldset class="table-search-fieldset">
+            <legend style="text-align: center;color: red" > 企业只能够对求职者进行查看，而不能修改</legend>
+            <p class="layui-hide" sec:authentication="name" name="username" id="username">
+        </fieldset>
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+<!--                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="resumeadd"> 添加 </button>-->
+                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="emailtouser"> 发送邮件 </button>
+            </div>
+        </script>
+
+        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+        <script type="text/html" id="currentTableBar">
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="resumeedit">编辑</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="resumedelete">删除</a>
+        </script>
+
+    </div>
+</div>
+
+<script>
+    layui.use(['form', 'table','miniPage','element'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table,
+            miniPage = layui.miniPage;
+
+        table.render({
+            elem: '#currentTableId',
+            url: '/selectResume',
+            toolbar: '#toolbarDemo',
+            defaultToolbar: ['filter', 'exports', 'print', {
+                title: '提示',
+                layEvent: 'LAYTABLE_TIPS',
+                icon: 'layui-icon-tips'
+            }],
+            cols: [
+                [
+                    {type: "checkbox", width: 50},
+                    {field: 'resumeId', width: 80, title: '简历ID', sort: true},
+                    {field: 'userId', width: 80, title: '用户ID'},
+                    {field: 'idNumber', width: 80, title: '身份证'},
+                    {field: 'username', width: 80, title: '姓名'},
+                    {field: 'sexy', title: '性别', minWidth: 150},
+                    {field: 'birthday', width: 80, title: '出生日期'},
+                    {field: 'age', width: 80, title: '年龄',sort: true},
+                    {field: 'nationnality', width: 80, title: '国籍'},
+                    {field: 'nation', width: 80, title: '民族'},
+                    {field: 'politicalStatus', width: 80, title: '政治面貌'},
+                    {field: 'residence', width: 80, title: '现居地'},
+                    {field: 'householdProvince', width: 80, title: '户籍省份'},
+                    {field: 'householdCity', width: 80, title: '户籍城市'},
+                    {field: 'academicDegree', width: 80, title: '学位'},
+                    {field: 'educationType', width: 80, title: '学历'},
+                    {field: 'graduationTime', width: 80, title: '毕业时间'},
+                    {field: 'major', width: 80, title: '专业'},
+                    {field: 'school', width: 80, title: '学校'},
+                    {field: 'phonenumber', width: 80, title: '手机号'},
+                    {field: 'email', width: 80, title: '邮箱'},
+                    {field: 'workingLife', width: 80, title: '工作年限'},
+                    {field: 'profession', width: 80, title: '行业'},
+                    {field: 'photoAddress', width: 80, title: '照片地址'},
+                    {field: 'expectedPlace', width: 80, title: '期待工作省份'},
+                    {field: 'expectedFunction', width: 80, title: '期待职能'},
+                    {field: 'expectedSalary', width: 80, title: '期待薪水'},
+                    {field: 'timeToWork', width: 80, title: '到岗时间'},
+                    {field: 'introduce', width: 80, title: '自我介绍'},
+                    {field: 'createTime', width: 80, title: '状态变化时间'},
+                    {field: 'status', width: 80, title: '简历状态'},
+                    {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+                ]
+            ],
+            limits: [10, 15, 20, 25, 50, 100],
+            limit: 15,
+            page: true,
+            skin: 'line'
+        });
+
+        /**
+         * toolbar事件监听
+         */
+        table.on('toolbar(currentTableFilter)', function (obj) {
+                if (obj.event === 'resumeadd') {   // 监听添加操作
+                    var content = miniPage.getHrefContent('/company/table/resumeadd');
+                    var openWH = miniPage.getOpenWidthHeight();
+
+                    var index = layer.open({
+                        title: '添加简历',
+                        type: 1,
+                        shade: 0.2,
+                        maxmin:true,
+                        shadeClose: true,
+                        area: [openWH[0] + 'px', openWH[1] + 'px'],
+                        offset: [openWH[2] + 'px', openWH[3] + 'px'],
+                        content: content,
+                    });
+                    $(window).on("resize", function () {
+                        layer.full(index);
+                    });
+                } else if (obj.event === 'emailtouser') {  // 监听发邮箱操作
+                    var data = obj.data;
+                    var content = miniPage.getHrefContent('/company/table/emailtouser');
+                    var openWH = miniPage.getOpenWidthHeight();
+
+                    var index = layer.open({
+                        title: '邮件信息',
+                        type: 1,
+                        shade: 0.2,
+                        maxmin:true,
+                        shadeClose: true,
+                        area: [openWH[0] + 'px', openWH[1] + 'px'],
+                        offset: [openWH[2] + 'px', openWH[3] + 'px'],
+                        content: content,
+                    });
+                    $(window).on("resize", function () {
+                        layer.full(index);
+                    });
+
+                }
+            }
+
+        );
+
+        //监听表格复选框选择
+        table.on('checkbox(currentTableFilter)', function (obj) {
+            console.log(obj)
+        });
+
+        table.on('tool(currentTableFilter)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'resumeedit') {
+                var content = miniPage.getHrefContent('/company/table/resumeedit?' +
+                    'jobId='+data.jobId+'&'+
+                    'jobName='+data.jobName+'&'+
+                    'jobTime='+data.jobTime+'&'+
+                    'perNum='+data.perNum+'&'+
+                    'jobPlace='+data.jobPlace+'&'+
+                    'jobRequire='+data.jobRequire+'&'+
+                    'reqeduType='+data.reqeduType+'&'+
+                    'reqworkLife='+data.reqworkLife+'&'+
+                    'reqexpSalary='+data.reqexpSalary+'&'+
+                    'reqworkProvince='+data.reqworkProvince+'&'+
+                    'reqworkCity='+data.reqworkCity+'&'+
+                    'reqproType='+data.reqproType
+                );
+                var openWH = miniPage.getOpenWidthHeight();
+
+                var index = layer.open({
+                    title: '编辑用户',
+                    type: 1,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: [openWH[0] + 'px', openWH[1] + 'px'],
+                    offset: [openWH[2] + 'px', openWH[3] + 'px'],
+                    content: content
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+                return false;
+            } else if (obj.event === 'resumedelete') {
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del();
+                    $.ajax({
+                        type:"POST",
+                        url:"/deleteResume",
+                        contentType: "application/json", //必须这样写
+                        dataType:"json",
+                        data:JSON.stringify(data),
+                        success:function (data) {
+                        }});
+                    layer.close(index);
+                });
+            }
+
+        });
+
+    });
+</script>

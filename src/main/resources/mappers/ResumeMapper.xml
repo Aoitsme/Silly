@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ao.crs.dao.ResumeMapper" >
+  <resultMap id="BaseResultMap" type="com.ao.crs.pojo.Resume" >
+    <id column="resume_id" property="resumeId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="id_number" property="idNumber" jdbcType="BIGINT" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="sexy" property="sexy" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="nationnality" property="nationnality" jdbcType="VARCHAR" />
+    <result column="nation" property="nation" jdbcType="VARCHAR" />
+    <result column="political_status" property="politicalStatus" jdbcType="VARCHAR" />
+    <result column="residence" property="residence" jdbcType="VARCHAR" />
+    <result column="household_province" property="householdProvince" jdbcType="VARCHAR" />
+    <result column="household_city" property="householdCity" jdbcType="VARCHAR" />
+    <result column="academic_degree" property="academicDegree" jdbcType="VARCHAR" />
+    <result column="education_type" property="educationType" jdbcType="VARCHAR" />
+    <result column="graduation_time" property="graduationTime" jdbcType="VARCHAR" />
+    <result column="major" property="major" jdbcType="VARCHAR" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="phoneNumber" property="phonenumber" jdbcType="BIGINT" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="working_life" property="workingLife" jdbcType="VARCHAR" />
+    <result column="profession" property="profession" jdbcType="VARCHAR" />
+    <result column="photo_address" property="photoAddress" jdbcType="VARCHAR" />
+    <result column="expected_place" property="expectedPlace" jdbcType="VARCHAR" />
+    <result column="expected_function" property="expectedFunction" jdbcType="VARCHAR" />
+    <result column="expected_salary" property="expectedSalary" jdbcType="VARCHAR" />
+    <result column="time_to_work" property="timeToWork" jdbcType="VARCHAR" />
+    <result column="introduce" property="introduce" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    resume_id, user_id, id_number, username, sexy, birthday, age, nationnality, nation, 
+    political_status, residence, household_province, household_city, academic_degree, 
+    education_type, graduation_time, major, school, phoneNumber, email, working_life, 
+    profession, photo_address, expected_place, expected_function, expected_salary, time_to_work, 
+    introduce, create_time, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from resume
+    where resume_id = #{resumeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from resume
+    where resume_id = #{resumeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ao.crs.pojo.Resume" >
+    insert into resume (resume_id, user_id, id_number, 
+      username, sexy, birthday, 
+      age, nationnality, nation, 
+      political_status, residence, household_province, 
+      household_city, academic_degree, education_type, 
+      graduation_time, major, school, 
+      phoneNumber, email, working_life, 
+      profession, photo_address, expected_place, 
+      expected_function, expected_salary, time_to_work, 
+      introduce, create_time, status
+      )
+    values (#{resumeId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{idNumber,jdbcType=BIGINT}, 
+      #{username,jdbcType=VARCHAR}, #{sexy,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, 
+      #{age,jdbcType=INTEGER}, #{nationnality,jdbcType=VARCHAR}, #{nation,jdbcType=VARCHAR}, 
+      #{politicalStatus,jdbcType=VARCHAR}, #{residence,jdbcType=VARCHAR}, #{householdProvince,jdbcType=VARCHAR}, 
+      #{householdCity,jdbcType=VARCHAR}, #{academicDegree,jdbcType=VARCHAR}, #{educationType,jdbcType=VARCHAR}, 
+      #{graduationTime,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, 
+      #{phonenumber,jdbcType=BIGINT}, #{email,jdbcType=VARCHAR}, #{workingLife,jdbcType=VARCHAR}, 
+      #{profession,jdbcType=VARCHAR}, #{photoAddress,jdbcType=VARCHAR}, #{expectedPlace,jdbcType=VARCHAR}, 
+      #{expectedFunction,jdbcType=VARCHAR}, #{expectedSalary,jdbcType=VARCHAR}, #{timeToWork,jdbcType=VARCHAR}, 
+      #{introduce,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{status,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ao.crs.pojo.Resume" >
+    insert into resume
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resumeId != null" >
+        resume_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="idNumber != null" >
+        id_number,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="sexy != null" >
+        sexy,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="nationnality != null" >
+        nationnality,
+      </if>
+      <if test="nation != null" >
+        nation,
+      </if>
+      <if test="politicalStatus != null" >
+        political_status,
+      </if>
+      <if test="residence != null" >
+        residence,
+      </if>
+      <if test="householdProvince != null" >
+        household_province,
+      </if>
+      <if test="householdCity != null" >
+        household_city,
+      </if>
+      <if test="academicDegree != null" >
+        academic_degree,
+      </if>
+      <if test="educationType != null" >
+        education_type,
+      </if>
+      <if test="graduationTime != null" >
+        graduation_time,
+      </if>
+      <if test="major != null" >
+        major,
+      </if>
+      <if test="school != null" >
+        school,
+      </if>
+      <if test="phonenumber != null" >
+        phoneNumber,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="workingLife != null" >
+        working_life,
+      </if>
+      <if test="profession != null" >
+        profession,
+      </if>
+      <if test="photoAddress != null" >
+        photo_address,
+      </if>
+      <if test="expectedPlace != null" >
+        expected_place,
+      </if>
+      <if test="expectedFunction != null" >
+        expected_function,
+      </if>
+      <if test="expectedSalary != null" >
+        expected_salary,
+      </if>
+      <if test="timeToWork != null" >
+        time_to_work,
+      </if>
+      <if test="introduce != null" >
+        introduce,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resumeId != null" >
+        #{resumeId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="idNumber != null" >
+        #{idNumber,jdbcType=BIGINT},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="sexy != null" >
+        #{sexy,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="nationnality != null" >
+        #{nationnality,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="politicalStatus != null" >
+        #{politicalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="residence != null" >
+        #{residence,jdbcType=VARCHAR},
+      </if>
+      <if test="householdProvince != null" >
+        #{householdProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="householdCity != null" >
+        #{householdCity,jdbcType=VARCHAR},
+      </if>
+      <if test="academicDegree != null" >
+        #{academicDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="educationType != null" >
+        #{educationType,jdbcType=VARCHAR},
+      </if>
+      <if test="graduationTime != null" >
+        #{graduationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenumber != null" >
+        #{phonenumber,jdbcType=BIGINT},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="workingLife != null" >
+        #{workingLife,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null" >
+        #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="photoAddress != null" >
+        #{photoAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="expectedPlace != null" >
+        #{expectedPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="expectedFunction != null" >
+        #{expectedFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="expectedSalary != null" >
+        #{expectedSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="timeToWork != null" >
+        #{timeToWork,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ao.crs.pojo.Resume" >
+    update resume
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="idNumber != null" >
+        id_number = #{idNumber,jdbcType=BIGINT},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="sexy != null" >
+        sexy = #{sexy,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="nationnality != null" >
+        nationnality = #{nationnality,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        nation = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="politicalStatus != null" >
+        political_status = #{politicalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="residence != null" >
+        residence = #{residence,jdbcType=VARCHAR},
+      </if>
+      <if test="householdProvince != null" >
+        household_province = #{householdProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="householdCity != null" >
+        household_city = #{householdCity,jdbcType=VARCHAR},
+      </if>
+      <if test="academicDegree != null" >
+        academic_degree = #{academicDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="educationType != null" >
+        education_type = #{educationType,jdbcType=VARCHAR},
+      </if>
+      <if test="graduationTime != null" >
+        graduation_time = #{graduationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenumber != null" >
+        phoneNumber = #{phonenumber,jdbcType=BIGINT},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="workingLife != null" >
+        working_life = #{workingLife,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null" >
+        profession = #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="photoAddress != null" >
+        photo_address = #{photoAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="expectedPlace != null" >
+        expected_place = #{expectedPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="expectedFunction != null" >
+        expected_function = #{expectedFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="expectedSalary != null" >
+        expected_salary = #{expectedSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="timeToWork != null" >
+        time_to_work = #{timeToWork,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        introduce = #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIT},
+      </if>
+    </set>
+    where resume_id = #{resumeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ao.crs.pojo.Resume" >
+    update resume
+    set user_id = #{userId,jdbcType=INTEGER},
+      id_number = #{idNumber,jdbcType=BIGINT},
+      username = #{username,jdbcType=VARCHAR},
+      sexy = #{sexy,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      nationnality = #{nationnality,jdbcType=VARCHAR},
+      nation = #{nation,jdbcType=VARCHAR},
+      political_status = #{politicalStatus,jdbcType=VARCHAR},
+      residence = #{residence,jdbcType=VARCHAR},
+      household_province = #{householdProvince,jdbcType=VARCHAR},
+      household_city = #{householdCity,jdbcType=VARCHAR},
+      academic_degree = #{academicDegree,jdbcType=VARCHAR},
+      education_type = #{educationType,jdbcType=VARCHAR},
+      graduation_time = #{graduationTime,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      phoneNumber = #{phonenumber,jdbcType=BIGINT},
+      email = #{email,jdbcType=VARCHAR},
+      working_life = #{workingLife,jdbcType=VARCHAR},
+      profession = #{profession,jdbcType=VARCHAR},
+      photo_address = #{photoAddress,jdbcType=VARCHAR},
+      expected_place = #{expectedPlace,jdbcType=VARCHAR},
+      expected_function = #{expectedFunction,jdbcType=VARCHAR},
+      expected_salary = #{expectedSalary,jdbcType=VARCHAR},
+      time_to_work = #{timeToWork,jdbcType=VARCHAR},
+      introduce = #{introduce,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      status = #{status,jdbcType=BIT}
+    where resume_id = #{resumeId,jdbcType=INTEGER}
+  </update>
+  <select id="findAll" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from resume
+  </select>
+</mapper>

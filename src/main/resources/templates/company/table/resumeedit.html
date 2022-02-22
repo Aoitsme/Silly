@@ -1,0 +1,154 @@
+
+
+<div class="layuimini-main">
+
+    <div class="layuimini-form">
+        <form class="layui-form" lay-filter="weightedit">
+            <p class="layui-hide" th:text="${param.jobId}" id="jobId">
+            <div class="layui-form-item">
+                <label class="layui-form-label required">性别要求</label>
+                <div class="layui-input-block">
+                    <input type="text" name="genderNeeds" id="genderNeeds" th:value="${param.genderNeeds}" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">年龄要求</label>
+                <div class="layui-input-block">
+                    <input type="text" name="ageNeeds"  id="ageNeeds" th:value="${param.ageNeeds}" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">婚姻要求</label>
+                <div class="layui-input-block">
+                    <input type="text" name="marriageNeeds"  id="marriageNeeds"  th:value="${param.marriageNeeds}" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">政治面貌要求</label>
+                <div class="layui-input-block">
+                    <input type="text" name="statusNeeds" id="statusNeeds" th:value="${param.statusNeeds}"class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">学历要求</label>
+                <div class="layui-input-block">
+                    <input type="text" name="eduNeeds" id="eduNeeds" th:value="${param.eduNeeds}" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">学历程度权重</label>
+                <div class="layui-input-block">
+                    <input type="text" name="edudegWeight" id="edudegWeight"  th:value="${param.edudegWeight}"class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">工作年限权重</label>
+                <div class="layui-input-block">
+                    <input type="text" name="workyearWeight" id="workyearWeight" th:value="${param.workyearWeight}" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">期待薪资权重</label>
+                <div class="layui-input-block">
+                    <input type="text" name="expsalaryWeight" id="expsalaryWeight"  th:value="${param.expsalaryWeight}" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">工作地点权重</label>
+                <div class="layui-input-block">
+                    <input type="text" name="workplaceWeight" id="workplaceWeight" th:value="${param.workplaceWeight}" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">专业权重</label>
+                <div class="layui-input-block">
+                    <input type="text" name="majorWeight" id="majorWeight" th:value="${param.majorWeight}" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'table'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            table = layui.table,
+            $ = layui.$;
+
+        /**
+         * 初始化表单，要加上，不然刷新部分组件可能会不加载
+         */
+        form.render();
+
+        // 当前弹出层，防止ID被覆盖
+        var parentIndex = layer.index;
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+        ,parseData: function(res){ //将原始数据解析成 table 组件所规定的数据
+                return {
+                    "code": res.status, //解析接口状态
+                    "msg": res.message, //解析提示文本
+                    "count": res.total, //解析数据长度
+                    "data": res.rows.item //解析数据列表
+                };
+            }
+            $.ajax({
+                type:"POST",
+                url:"/editWeightByJobId?jobId="+document.getElementById("jobId").innerText,
+                contentType: "application/json", //必须这样写
+                dataType:"json",
+                data:JSON.stringify(data.field),
+                success:function (data) {
+
+                }
+
+            })
+
+            // 关闭弹出层
+            layer.close(index);
+            layer.close(parentIndex);
+            return false;
+        });
+        $(function() {
+            $.ajax({
+                type: "GET",
+                url: "/selectWeightByJobId",
+                contentType: "application/json", //必须这样写
+                dataType: "json",
+                data:document.getElementById("jobId").innerText,
+                success: function (data) {
+                    var data = data;
+                    $.each(data.data, function(i, item) {
+                        form.val('weightedit',
+                            {
+                                "genderNeeds": item.genderNeeds
+                                , "ageNeeds": item.ageNeeds
+                                , "marriageNeeds": item.marriageNeeds
+                                , "statusNeeds": item.statusNeeds
+                                , "eduNeeds": item.eduNeeds
+                                , "edudegWeight": item.edudegWeight
+                                , "workyearWeight": item.workyearWeight
+                                , "expsalaryWeight": item.expsalaryWeight
+                                , "workplaceWeight": item.workplaceWeight
+                                , "majorWeight": item.majorWeight
+
+                            }
+                        );
+                    });
+
+
+                }
+            })
+        });
+
+
+    });
+</script>
+
